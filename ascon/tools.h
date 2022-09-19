@@ -7,6 +7,7 @@ using namespace std;
 #define KEY_LENGTH 160
 #define NONCE_LENGTH 128
 #define STATE_LENGTH 320
+#define TAG_LENGTH 128
 
 #ifndef tools
 #define tools

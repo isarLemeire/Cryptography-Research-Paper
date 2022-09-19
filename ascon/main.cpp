@@ -9,7 +9,7 @@ using namespace std;
 
 bool debug = false;
 
-//"x64/Debug/ascon.exe" -k abc -N 10 -A blabla -P test -debug 
+//"x64/Debug/ascon.exe" -k abc -N 10 -A data -P test -debug -a 12 -b 8
 int main(int argc, char* argv[])
 {
     //initialise variables

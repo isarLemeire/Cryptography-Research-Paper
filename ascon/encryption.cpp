@@ -106,7 +106,7 @@ void processingPlaintext(string* S, string* C, string P, int a, int b, int r) {
     *C += Sr.substr(0, Sr.length() - padding - 1);
 }
 
-void finalisation(string* S, string* C, string K, int a, int b, int r) {
+encrypted_message finalisation(string* S, string* C, string K, int a, int b, int r) {
     string temp = string(r, '0') + K + string(320 - r - K.length(), '0');
     *S = permute(XOR(*S, temp), a, b, true);
     string T; //currently T is not returned
@@ -116,10 +116,10 @@ void finalisation(string* S, string* C, string K, int a, int b, int r) {
     else {
         T = XOR((*S).substr((*S).length() - TAG_LENGTH, TAG_LENGTH), K.substr(K.length() - TAG_LENGTH, TAG_LENGTH));
     }
-    cout << T << " " << T.length() << endl;
+    return encrypted_message(*C, T);
 }
 
-string encrypt(string key, string nonce, string data, string plaintext, int a, int b, int r, bool debug) {
+encrypted_message encrypt(string key, string nonce, string data, string plaintext, int a, int b, int r, bool debug) {
     string S = "";
     string C = "";
     initialisation(&S, key, nonce, a, b, r);
@@ -138,6 +138,6 @@ string encrypt(string key, string nonce, string data, string plaintext, int a, i
         cout << "S = " << S << endl;
         cout << "C = " << C << endl;
     }
-    finalisation(&S, &C, key, a, b, r);
-    return S;
+    encrypted_message message = finalisation(&S, &C, key, a, b, r);
+    return message;
 }

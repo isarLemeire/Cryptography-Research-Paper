@@ -136,6 +136,9 @@ int main(int argc, char* argv[])
         cout << "b = " << b << endl;
         cout << "r = " << r << endl;
     }
-    cout << "encrypted message = " << encrypt(key, nonce, data, plaintext, a, b, r, debug) << endl;    
+    cout << "ENCRYPTING" << endl;
+    cout << "plaintext = " << plaintext << endl;
+    cout << "cyphertext = " << encrypt(key, nonce, data, plaintext, a, b, r, debug).cyphertext << endl;
+    cout << "tag = " << encrypt(key, nonce, data, plaintext, a, b, r, debug).cyphertext << endl;
     return 0;
 }

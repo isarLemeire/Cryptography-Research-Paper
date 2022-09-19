@@ -6,6 +6,5 @@ C:\Users\isarL\OneDrive\Documents\school 22-23\Cryptography\cryptoResearch\ascon
 C:\Users\isarL\OneDrive\Documents\school 22-23\Cryptography\cryptoResearch\ascon\main.cpp(63,30): warning C4244: '=': conversion from 'unsigned __int64' to 'int', possible loss of data
 C:\Users\isarL\OneDrive\Documents\school 22-23\Cryptography\cryptoResearch\ascon\main.cpp(75,30): warning C4244: '=': conversion from 'unsigned __int64' to 'int', possible loss of data
 C:\Users\isarL\OneDrive\Documents\school 22-23\Cryptography\cryptoResearch\ascon\main.cpp(87,30): warning C4244: '=': conversion from 'unsigned __int64' to 'int', possible loss of data
-  tools.cpp
   Generating Code...
   ascon.vcxproj -> C:\Users\isarL\OneDrive\Documents\school 22-23\Cryptography\cryptoResearch\x64\Debug\ascon.exe

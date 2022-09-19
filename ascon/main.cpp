@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 
+
 #include "tools.h"
 #include "encryption.h"
 
@@ -9,7 +10,7 @@ using namespace std;
 
 bool debug = false;
 
-//"x64/Debug/ascon.exe" -k abc -N 10 -A data -P test -debug -a 12 -b 8
+//"x64/Debug/ascon.exe" -k thisIsAKeyabcdef -N 128 -A data -P plaintext -a 12 -b 8
 int main(int argc, char* argv[])
 {
     //initialise variables
@@ -136,9 +137,16 @@ int main(int argc, char* argv[])
         cout << "b = " << b << endl;
         cout << "r = " << r << endl;
     }
+    encrypted_message message = encrypt(key, nonce, data, plaintext, a, b, r, debug);
+    decrypted_message outp = decrypt(key, nonce, data, message, a, b, r, debug);
     cout << "ENCRYPTING" << endl;
-    cout << "plaintext = " << plaintext << endl;
-    cout << "cyphertext = " << encrypt(key, nonce, data, plaintext, a, b, r, debug).cyphertext << endl;
-    cout << "tag = " << encrypt(key, nonce, data, plaintext, a, b, r, debug).cyphertext << endl;
+    cout << "plaintext = " << BinaryStringToText(plaintext) << endl;
+    cout << "plaintext in bytes = " << plaintext << endl;
+    cout << "cyphertext = " << message.ciphertext << endl;
+    cout << "tag = " << message.tag << endl;
+    cout << "DECRYPTING" << endl;
+    cout << "decrypted plaintext in bytes = " << outp.plaintext << endl;
+    cout << "decrypted plaintext = " << BinaryStringToText(outp.plaintext) << endl;
+    cout << "verification = " << outp.verification << endl;
     return 0;
 }

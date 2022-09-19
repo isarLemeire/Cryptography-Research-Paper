@@ -106,17 +106,43 @@ void processingPlaintext(string* S, string* C, string P, int a, int b, int r) {
     *C += Sr.substr(0, Sr.length() - padding - 1);
 }
 
-encrypted_message finalisation(string* S, string* C, string K, int a, int b, int r) {
+void processingCiphertext(string* S, string* P, string C, int a, int b, int r) {
+    for (int i = 0; i < C.length() / r; i++) {
+        *P = *P + XOR((*S).substr(0, r), C.substr(i * r, r));
+        *S = C.substr(i * r, r) + (*S).substr(r, (*S).length() - r);
+        *S = permute(*S, a, b, false);
+    }
+
+    int l = C.length() % r;
+    string Pt = XOR((*S).substr(0, l), C.substr(C.length() - l, l));
+    *P += Pt;
+    *S = XOR((*S).substr(0, r), Pt + "1" + string(r - 1 - l, '0')) + (*S).substr(r, (*S).length() - r);
+}
+
+encrypted_message finalisationEncryption(string* S, string C, string K, int a, int b, int r) {
     string temp = string(r, '0') + K + string(320 - r - K.length(), '0');
     *S = permute(XOR(*S, temp), a, b, true);
-    string T; //currently T is not returned
+    string T;
     if (K.length() <= TAG_LENGTH) {
         T = XOR((*S).substr((*S).length() - TAG_LENGTH, TAG_LENGTH), string(TAG_LENGTH - K.length(), '0') + K);
     }
     else {
         T = XOR((*S).substr((*S).length() - TAG_LENGTH, TAG_LENGTH), K.substr(K.length() - TAG_LENGTH, TAG_LENGTH));
     }
-    return encrypted_message(*C, T);
+    return encrypted_message(C, T);
+}
+
+decrypted_message finalisationDecryption(string* S, string P, string T, string K, int a, int b, int r) {
+    string temp = string(r, '0') + K + string(320 - r - K.length(), '0');
+    *S = permute(XOR(*S, temp), a, b, true);
+    string Ts; //currently T is not returned
+    if (K.length() <= TAG_LENGTH) {
+        Ts = XOR((*S).substr((*S).length() - TAG_LENGTH, TAG_LENGTH), string(TAG_LENGTH - K.length(), '0') + K);
+    }
+    else {
+        Ts = XOR((*S).substr((*S).length() - TAG_LENGTH, TAG_LENGTH), K.substr(K.length() - TAG_LENGTH, TAG_LENGTH));
+    }
+    return decrypted_message(P, Ts.compare(T) == 0);
 }
 
 encrypted_message encrypt(string key, string nonce, string data, string plaintext, int a, int b, int r, bool debug) {
@@ -138,6 +164,25 @@ encrypted_message encrypt(string key, string nonce, string data, string plaintex
         cout << "S = " << S << endl;
         cout << "C = " << C << endl;
     }
-    encrypted_message message = finalisation(&S, &C, key, a, b, r);
+    encrypted_message message = finalisationEncryption(&S, C, key, a, b, r);
     return message;
+}
+
+decrypted_message decrypt(string key, string nonce, string data, encrypted_message message, int a, int b, int r, bool debug) {
+    string S = "";
+    string P = "";
+    initialisation(&S, key, nonce, a, b, r);
+    if (debug) {
+        cout << "initialising..." << endl;
+        cout << "S = " << S << endl;
+    }
+    processingAssociatedData(&S, data, a, b, r);
+    if (debug) {
+        cout << "processing associated data..." << endl;
+        cout << "S = " << S << endl;
+    }
+    processingCiphertext(&S, &P, message.ciphertext, a, b, r);
+    decrypted_message outp = finalisationDecryption(&S, P, message.tag, key, a, b, r);
+    
+    return outp;
 }

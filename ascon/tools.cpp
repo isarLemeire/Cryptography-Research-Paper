@@ -54,3 +54,15 @@ string intToBinaryStringByte(unsigned int input) {
     string s = std::bitset< 8 >(input).to_string();
     return s;
 }
+
+string BinaryStringToText(string binaryString) {
+    string text = "";
+    stringstream sstream(binaryString);
+    while (sstream.good())
+    {
+        bitset<8> bits;
+        sstream >> bits;
+        text += char(bits.to_ulong());
+    }
+    return text;
+}

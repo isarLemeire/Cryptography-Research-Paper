@@ -1,6 +1,7 @@
 #include <string>
 #include <assert.h>
 #include <bitset>
+#include <sstream>
 
 using namespace std;
 
@@ -29,5 +30,8 @@ string intToBinaryStringNonce(unsigned long long int input);
 
 //Converts an integer into a string containing its binary representation with length 8
 string intToBinaryStringByte(unsigned int input);
+
+//converts a bitstream into plaintext
+string BinaryStringToText(string binaryString);
 
 #endif

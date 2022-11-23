@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
 
 
     //LOAD-INPUTS-GIVEN-BY-TERMINALl----------------------------------------------------------------------------------------------------------------------------
-    //program can be run by executing for example: "x64/Debug/ascon.exe" -k thisIsAKeyabcdef -N 123 -A thisIsAssociatedData -P thisIsAPlaintext -a 12 -b 8 -r 64
+    //program can be run by executing for example: "x64/Debug/ascon.exe" -k thisIsAKey -N 123 -A thisIsAssociatedData -P thisIsAPlaintext -a 12 -b 8 -r 64
     for (int i = 0; i < argc; i++)
     {
         if (string(argv[i]) == "-h" || string(argv[i]) == "--help")
@@ -36,9 +36,9 @@ int main(int argc, char* argv[])
             cout << "-N or -nonce, a decimal representation of the nonce or message number consisting of maximum 128 bits, must be given" << endl;
             cout << "-A or -data, an acsii representation of the associated data" << endl;
             cout << "-P or -plaintext, an acsii representation of the plaintext, must be given" << endl;
-            cout << "-a, finalisation permutation a, automatically set to 12" << endl;
-            cout << "-b, finalisation permutation a, automatically set to 8" << endl;
-            cout << "-r or -rate, finalisation permutation a, automatically set to 8" << endl;
+            cout << "-a, number of permutation rounds for pa, default value 12" << endl;
+            cout << "-b, number of permutation rounds for pb, default value 8" << endl;
+            cout << "-r or -rate, finalisation permutation a, default value 64" << endl;
             cout << "-debug, turns on debug-mode" << endl;
             return 0;
         }

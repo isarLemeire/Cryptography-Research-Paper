@@ -32,10 +32,10 @@ int main(int argc, char* argv[])
     {
         if (string(argv[i]) == "-h" || string(argv[i]) == "--help")
         {
-            cout << "-k or -key, an acsii representation of the key consisting of maximum 20 characters, must be given" << endl;
+            cout << "-k or -key, an ASCII representation of the key consisting of maximum 20 characters, must be given" << endl;
             cout << "-N or -nonce, a decimal representation of the nonce or message number consisting of maximum 128 bits, must be given" << endl;
             cout << "-A or -data, an acsii representation of the associated data" << endl;
-            cout << "-P or -plaintext, an acsii representation of the plaintext, must be given" << endl;
+            cout << "-P or -plaintext, an ASCII representation of the plaintext, must be given" << endl;
             cout << "-a, number of permutation rounds for pa, default value 12" << endl;
             cout << "-b, number of permutation rounds for pb, default value 8" << endl;
             cout << "-r or -rate, finalisation permutation a, default value 64" << endl;

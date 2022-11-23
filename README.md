@@ -25,4 +25,5 @@ Additionally the following arguments can be provided:
   5. -debug, turns on debug-mode, making the program print intermediate steps
   
 An example of an valid input is given below:
+
   "x64/Debug/ascon.exe" -k thisIsAKey -N 123 -A thisIsAssociatedData -P thisIsAPlaintext -a 12 -b 8 -r 64

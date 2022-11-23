@@ -22,16 +22,16 @@ string AND(string str1, string str2);
 //Rotates a bitstream ncharacters to the right
 string rotate(string str, int n);
 
-//Converts a string into a string containing its binary representation
+//Converts a string using ASCII characters into a string containing its binary representation
 string textToBinaryString(string words);
 
-//Converts an integer into a string containing its binary representation with the length of the nonce
+//Converts an integer into a string containing its binary representation with a bitsize of 128
 string intToBinaryStringNonce(unsigned long long int input);
 
-//Converts an integer into a string containing its binary representation with length 8
+//Converts an integer into a string containing its binary representation with bitsize 8
 string intToBinaryStringByte(unsigned int input);
 
-//converts a bitstream into plaintext
+//converts a bitstream into a string using ASCII characters
 string BinaryStringToText(string binaryString);
 
 #endif

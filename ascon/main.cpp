@@ -1,16 +1,17 @@
 #include <stdio.h>
 #include <iostream>
 #include <string>
+#include <chrono>
 
 
 #include "tools.h"
-#include "encryption.h"
+#include "ascon.h"
 
 using namespace std;
+using namespace std::chrono;
 
 bool debug = false;
 
-//"x64/Debug/ascon.exe" -k thisIsAKeyabcdef -N 128 -A data -P plaintext -a 12 -b 8
 int main(int argc, char* argv[])
 {
     //initialise variables
@@ -18,12 +19,15 @@ int main(int argc, char* argv[])
     string nonce = "";
     string data = "";
     string plaintext = "";
+
+    //if not specifief a, b and r will have the values of Ascon-128
     int a = 12;
     int b = 8;
     int r = 64;
 
 
-    //Load inputs
+    //LOAD-INPUTS-GIVEN-BY-TERMINALl----------------------------------------------------------------------------------------------------------------------------
+    //program can be run by executing for example: "x64/Debug/ascon.exe" -k thisIsAKeyabcdef -N 123 -A thisIsAssociatedData -P thisIsAPlaintext -a 12 -b 8 -r 64
     for (int i = 0; i < argc; i++)
     {
         if (string(argv[i]) == "-h" || string(argv[i]) == "--help")
@@ -127,26 +131,27 @@ int main(int argc, char* argv[])
         cout << "-b should be smaller than a" << endl;
         return 0;
     }
+    //EXECUTE-ENCRYPTION-AND-DECRYPTION----------------------------------------------------------------------------------------------------------------------------
+    encrypted_message ciphertext = encrypt(key, nonce, data, plaintext, a, b, r, debug);
+    decrypted_message decrypted = decrypt(key, nonce, data, ciphertext, a, b, r, debug);
 
-    if (debug) {
-        cout << "key = " << key << endl;
-        cout << "nonce = " << nonce << endl;
-        cout << "data = " << data << endl;
-        cout << "plaintext = " << plaintext << endl;
-        cout << "a = " << a << endl;
-        cout << "b = " << b << endl;
-        cout << "r = " << r << endl;
-    }
-    encrypted_message message = encrypt(key, nonce, data, plaintext, a, b, r, debug);
-    decrypted_message outp = decrypt(key, nonce, data, message, a, b, r, debug);
-    cout << "ENCRYPTING" << endl;
+    //PRINT-OUTPUT-------------------------------------------------------------------------------------------------------------------------------------------------
+    //inputs
+    cout << "INPUTS" << endl;
     cout << "plaintext = " << BinaryStringToText(plaintext) << endl;
-    cout << "plaintext in bytes = " << plaintext << endl;
-    cout << "cyphertext = " << message.ciphertext << endl;
-    cout << "tag = " << message.tag << endl;
-    cout << "DECRYPTING" << endl;
-    cout << "decrypted plaintext in bytes = " << outp.plaintext << endl;
-    cout << "decrypted plaintext = " << BinaryStringToText(outp.plaintext) << endl;
-    cout << "verification = " << outp.verification << endl;
-    return 0;
+    cout << "plaintext in bytes = " << plaintext << endl << endl;
+
+    //encrypting
+    cout << "ENCRYPTION" << endl;
+    cout << "ciphertext = " << ciphertext.ciphertext << endl;
+    cout << "tag = " << ciphertext.tag << endl << endl;
+
+    //decrypting
+    cout << "DECRYPTION" << endl;
+    
+    cout << "decrypted plaintext in bytes = " << decrypted.plaintext << endl;
+    cout << "decrypted plaintext = " << BinaryStringToText(decrypted.plaintext) << endl;
+    cout << "verification = " << decrypted.verification << endl << endl;
+   
+
 }

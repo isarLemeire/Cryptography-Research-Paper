@@ -1,4 +1,4 @@
-# cryptoResearch
+# Cryptography Research Paper
 
 A constant time implementation of the Ascon algorithm.
 A constant time implementation was achieved by using bitslicing in the substitution layer.

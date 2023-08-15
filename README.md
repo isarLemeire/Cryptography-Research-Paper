@@ -6,7 +6,7 @@ This project implements the Ascon algorithm, a constant time implementation was 
 
 ## Execution
 
-use -h" or --help to receive an explanation of the expected arguments.
+use -h or --help to receive an explanation of the expected arguments.
 
 The executable expects the following arguments:
   1. -k or -key, an ASCII representation of the key consisting of a maximum of 20 characters

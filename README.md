@@ -1,16 +1,12 @@
 # Cryptography Research Paper
 
-A constant time implementation of the Ascon algorithm.
-A constant time implementation was achieved by using bitslicing in the substitution layer.
+This was created as an assignment for university.
 
-## File Structure
-This project is implemented using Microsoft Visual Studio using c++. The solution can be opened by opening ascon.sln.
-The source code is found in "/ascon".
-The latest build is "/x64/Debug/ascon.exe".
+This project implements the Ascon algorithm, a constant time implementation was achieved by using bitslicing in the substitution layer.
 
 ## Execution
-The location of the executable is "x64/Debug/ascon.exe".
-Running "x64/Debug/ascon.exe -h" or "x64/Debug/ascon.exe --help" will return an explanation of the expected arguments.
+
+use -h" or --help to receive an explanation of the expected arguments.
 
 The executable expects the following arguments:
   1. -k or -key, an ASCII representation of the key consisting of a maximum of 20 characters
@@ -24,6 +20,6 @@ Additionally the following arguments can be provided:
   4. -r or -rate, finalisation permutation a, default value 64
   5. -debug, turns on debug-mode, making the program print intermediate steps
   
-An example of an valid input is given below:
+An example of an valid command is given below:
 
-  "x64/Debug/ascon.exe" -k thisIsAKey -N 123 -A thisIsAssociatedData -P thisIsAPlaintext -a 12 -b 8 -r 64
+  ./ascon.exe -k thisIsAKey -N 123 -A thisIsAssociatedData -P thisIsAPlaintext -a 12 -b 8 -r 64

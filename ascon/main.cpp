@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <string>
+#include <cstring>
 #include <chrono>
 
 
@@ -55,7 +56,7 @@ int main(int argc, char* argv[])
         else if (string(argv[i]) == "-N" || string(argv[i]) == "-nonce")
         {
             unsigned long long int n = std::strtoull(argv[i+1], NULL, 0);
-            if (n == NULL) {
+            if (n == 0) {
                 cout << "nonce " << argv[i + 1] << " is not a valid decimal number bigger than 0" << endl;
                 return 0;
             }
@@ -66,7 +67,7 @@ int main(int argc, char* argv[])
         else if (string(argv[i]) == "-a")
         {
             a = std::strtoull(argv[i + 1], NULL, 0);
-            if (a == NULL) {
+            if (a == 0) {
                 cout << "-a " << argv[i + 1] << " is not a valid decimal number" << endl;
                 return 0;
             }
@@ -78,7 +79,7 @@ int main(int argc, char* argv[])
         else if (string(argv[i]) == "-b")
         {
             b = std::strtoull(argv[i + 1], NULL, 0);
-            if (b == NULL) {
+            if (b == 0) {
                 cout << "-b " << argv[i + 1] << " is not a valid decimal number" << endl;
                 return 0;
             }
@@ -90,7 +91,7 @@ int main(int argc, char* argv[])
         else if (string(argv[i]) == "-r")
         {
             r = std::strtoull(argv[i + 1], NULL, 0);
-            if (b == NULL) {
+            if (b == 0) {
                 cout << "-r " << argv[i + 1] << " is not a valid decimal number bigger than 0" << endl;
                 return 0;
             }
